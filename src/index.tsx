@@ -1,6 +1,9 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { App } from "./components/app/app";
+
+import {
+  HorizontalScroll,
+} from "./components/horizontalScroll/horizontalScroll";
 
 const rootEl = document.getElementById("root");
-ReactDOM.render(<App />, rootEl);
+ReactDOM.render(<HorizontalScroll />, rootEl);

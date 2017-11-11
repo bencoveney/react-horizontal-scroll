@@ -1,8 +1,8 @@
 import * as React from "react";
 
-import { Header } from "../header/header";
+import { Canvas } from "../canvas/canvas";
 
-export class App extends React.Component<{}, { count: number; }> {
+export class HorizontalScroll extends React.Component<{}, { count: number; }> {
   public state = { count: 0 };
   private interval: number;
 
@@ -20,7 +20,7 @@ export class App extends React.Component<{}, { count: number; }> {
   public render() {
     return (
       <div>
-        <Header value="Hello world!" />
+        <Canvas value="Hello world!" />
         <div>
           Welcome to the react/typescript boilerplate {this.state.count}
         </div>

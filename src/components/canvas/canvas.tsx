@@ -5,6 +5,6 @@ const style: Readonly<React.CSSProperties> = {
   fontSize: "1.8em",
 };
 
-export const Header: React.SFC<{ value: string }> = (props) => {
+export const Canvas: React.SFC<{ value: string }> = (props) => {
   return <h1 style={style}>{props.value}</h1>;
 };
