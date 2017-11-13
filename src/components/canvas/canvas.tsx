@@ -20,6 +20,7 @@ export const Canvas: React.SFC<{
   children: ItemChildren;
   outerWidth: number;
   innerWidth: number;
+  setScrollPosition: (left: number, width: number) => void;
 }> = (props) => {
   const wrapped = props.children.map((child, index) => {
     const style: React.CSSProperties = {
@@ -31,8 +32,15 @@ export const Canvas: React.SFC<{
     };
     return <div key={index} style={style}>{child}</div>;
   });
+  const scrollHandler: React.UIEventHandler<any> = (event) => {
+    const element = event.target as Element;
+    props.setScrollPosition(
+      element.scrollLeft,
+      element.clientWidth,
+    );
+  };
   return (
-    <div style={outerStyle(props.outerWidth)}>
+    <div style={outerStyle(props.outerWidth)} onScroll={scrollHandler}>
       <div style={innerStyle(props.innerWidth)}>
         {wrapped}
       </div>

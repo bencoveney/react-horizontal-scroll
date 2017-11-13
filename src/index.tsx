@@ -16,6 +16,10 @@ const DemoElement: React.SFC<ItemProps> = (props) => {
   return <div style={style}>{LoremIpsum()}</div>;
 };
 
+const demoStyle: React.CSSProperties = {
+  margin: "50px",
+};
+
 const Demo: React.SFC = () => {
   const content = new Array(5)
     .fill(undefined)
@@ -31,7 +35,7 @@ const Demo: React.SFC = () => {
         />
       ),
     );
-  return <Scroll>{content}</Scroll>;
+  return <div style={{demoStyle}}><Scroll>{content}</Scroll></div>;
 };
 
 const rootEl = document.getElementById("root");

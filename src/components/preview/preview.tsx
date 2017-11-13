@@ -8,6 +8,8 @@ export const Preview: React.SFC<{
   canvasWidth: number,
   children: ItemChildren,
   height: number,
+  scrollLeft: number,
+  scrollWidth: number,
   width: number,
 }> = (props) => {
   const heightScale = props.height / props.canvasHeight;
@@ -29,5 +31,18 @@ export const Preview: React.SFC<{
     position: "relative",
     width: `${props.width}px`,
   };
-  return <div style={style}>{thumbnails}</div>;
+  const viewportStyle: React.CSSProperties = {
+    border: "1px solid black",
+    boxSizing: "border-box",
+    height: `${props.height}px`,
+    left: `${props.scrollLeft * widthScale}px`,
+    position: "absolute",
+    width: `${props.scrollWidth * widthScale}px`,
+  };
+  return (
+    <div style={style}>
+      {thumbnails}
+      <div style={viewportStyle} />
+    </div>
+  );
 };

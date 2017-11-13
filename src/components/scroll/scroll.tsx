@@ -10,9 +10,8 @@ interface Props {
 }
 
 interface State {
-  width: number;
-  height: number;
-  xPosition: number;
+  scrollLeft: number;
+  scrollWidth: number;
 }
 
 const getMaximum = (
@@ -31,14 +30,23 @@ const getMaximum = (
 const width = 500;
 
 export class Scroll extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      scrollLeft: 0,
+      scrollWidth: 10,
+    };
+  }
   public render() {
     const maximumWidth = getMaximum(this.props.children, "x", "width");
     const maximumHeight = getMaximum(this.props.children, "y", "height");
+    const scrollHandler = this.setScrollPosition.bind(this);
     return (
       <div>
         <Canvas
           outerWidth={width}
           innerWidth={maximumWidth}
+          setScrollPosition={scrollHandler}
         >
           {this.props.children}
         </Canvas>
@@ -47,10 +55,18 @@ export class Scroll extends React.Component<Props, State> {
           height={50}
           canvasWidth={maximumWidth}
           canvasHeight={maximumHeight}
+          scrollLeft={this.state.scrollLeft}
+          scrollWidth={this.state.scrollWidth}
         >
           {this.props.children}
         </Preview>
       </div>
     );
+  }
+  private setScrollPosition(left: number, width: number): void {
+    this.setState({
+      scrollLeft: left,
+      scrollWidth: width,
+    });
   }
 }
