@@ -27,7 +27,9 @@ const getMaximum = (
     0,
   );
 
-const width = 500;
+// Use a simple width for now.
+// TODO: determine width and lay out components accordingly.
+const demoWidth = 500;
 
 export class Scroll extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -44,19 +46,20 @@ export class Scroll extends React.Component<Props, State> {
     return (
       <div>
         <Canvas
-          outerWidth={width}
+          outerWidth={demoWidth}
           innerWidth={maximumWidth}
           setScrollPosition={scrollHandler}
         >
           {this.props.children}
         </Canvas>
         <Preview
-          width={width}
+          width={demoWidth}
           height={50}
           canvasWidth={maximumWidth}
           canvasHeight={maximumHeight}
           scrollLeft={this.state.scrollLeft}
           scrollWidth={this.state.scrollWidth}
+          setScrollPosition={scrollHandler}
         >
           {this.props.children}
         </Preview>
