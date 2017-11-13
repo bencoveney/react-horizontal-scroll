@@ -4,6 +4,8 @@
   "description": "Boilerplate project with TypeScript and React",
   "main": "docs/bundle.js",
   "dependencies": {
+    "@types/lorem-ipsum": "^1.0.2",
+    "lorem-ipsum": "^1.0.4",
     "mdi": "^2.0.46",
     "react": "^15.5.4",
     "react-dom": "^15.5.4"
