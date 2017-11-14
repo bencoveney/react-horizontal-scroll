@@ -48,6 +48,8 @@ export class Scroll extends React.Component<Props, State> {
         <Canvas
           outerWidth={demoWidth}
           innerWidth={maximumWidth}
+          scrollLeft={this.state.scrollLeft}
+          scrollWidth={this.state.scrollWidth}
           setScrollPosition={scrollHandler}
         >
           {this.props.children}
