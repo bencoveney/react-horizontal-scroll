@@ -5,7 +5,8 @@ import { Preview } from "../preview/preview";
 import { ItemChildren, ItemProps } from "../scroll/item";
 
 interface Props {
-  height?: number | undefined;
+  width: number;
+  height: number;
   children: ItemChildren;
 }
 
@@ -27,10 +28,6 @@ const getMaximum = (
     0,
   );
 
-// Use a simple width for now.
-// TODO: determine width and lay out components accordingly.
-const demoWidth = 500;
-
 export class Scroll extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -46,7 +43,7 @@ export class Scroll extends React.Component<Props, State> {
     return (
       <div>
         <Canvas
-          outerWidth={demoWidth}
+          outerWidth={this.props.width}
           innerWidth={maximumWidth}
           scrollLeft={this.state.scrollLeft}
           scrollWidth={this.state.scrollWidth}
@@ -55,7 +52,7 @@ export class Scroll extends React.Component<Props, State> {
           {this.props.children}
         </Canvas>
         <Preview
-          width={demoWidth}
+          width={this.props.width}
           height={50}
           canvasWidth={maximumWidth}
           canvasHeight={maximumHeight}
