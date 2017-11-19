@@ -40,15 +40,11 @@ export class Canvas extends React.Component<Props, {}> {
     });
     const scrollHandler: React.UIEventHandler<any> = (event) => {
       const element = event.target as Element;
-      this.props.setScrollPosition(
-        element.scrollLeft,
-        element.clientWidth,
-      );
     };
     return (
       <div
         style={outerStyle(this.props.outerWidth)}
-        onScroll={scrollHandler}
+        onScroll={this.setScrollPosition}
         ref={(outer) => this.outer = outer}
       >
         <div style={innerStyle(this.props.innerWidth)}>
@@ -57,9 +53,20 @@ export class Canvas extends React.Component<Props, {}> {
       </div>
     );
   }
+  public componentDidMount() {
+    this.setScrollPosition();
+  }
   public componentDidUpdate() {
     if (this.outer) {
       this.outer.scrollLeft = this.props.scrollLeft;
+    }
+  }
+  private setScrollPosition = () => {
+    if (this.outer) {
+      this.props.setScrollPosition(
+        this.outer.scrollLeft,
+        this.outer.clientWidth,
+      );
     }
   }
 }
