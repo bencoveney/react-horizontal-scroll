@@ -22,7 +22,7 @@ const evaluateDimension = (dimension: Dimension): Optional<string> => {
 
 interface Props {
   width?: Dimension;
-  height?: Dimension;
+  height: Dimension;
   children: ItemChildren;
 }
 
@@ -48,8 +48,8 @@ export class Wrapper extends React.Component<Props, State> {
   }
   public render() {
     const style: React.CSSProperties = {
-      height: evaluateDimension(this.state.height || this.state.height),
-      width: evaluateDimension(this.state.width || this.state.width),
+      height: evaluateDimension(this.state.height || this.props.height),
+      width: evaluateDimension(this.state.width || this.props.width),
     };
     let children: Nullable<React.ReactNode> = null;
     if (isNumber(this.state.width) && isNumber(this.state.height)) {

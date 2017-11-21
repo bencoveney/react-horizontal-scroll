@@ -28,6 +28,8 @@ const getMaximum = (
     0,
   );
 
+const previewHeight = 100;
+
 export class Scroll extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -44,6 +46,7 @@ export class Scroll extends React.Component<Props, State> {
       <div>
         <Canvas
           outerWidth={this.props.width}
+          height={this.props.height - previewHeight}
           innerWidth={maximumWidth}
           scrollLeft={this.state.scrollLeft}
           scrollWidth={this.state.scrollWidth}
@@ -53,7 +56,7 @@ export class Scroll extends React.Component<Props, State> {
         </Canvas>
         <Preview
           width={this.props.width}
-          height={50}
+          height={previewHeight}
           canvasWidth={maximumWidth}
           canvasHeight={maximumHeight}
           scrollLeft={this.state.scrollLeft}

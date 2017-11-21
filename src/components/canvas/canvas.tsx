@@ -3,9 +3,9 @@ import * as ReactDom from "react-dom";
 
 import { ItemChildren } from "../index";
 
-const outerStyle = (width: number): React.CSSProperties => ({
-  height: "100px",
-  overflowX: "auto",
+const outerStyle = (height: number, width: number): React.CSSProperties => ({
+  height: `${height}px`,
+  overflow: "hidden",
   width: `${width}px`,
 });
 
@@ -18,6 +18,7 @@ const innerStyle = (width: number): React.CSSProperties => ({
 
 interface Props {
   children: ItemChildren;
+  height: number;
   outerWidth: number;
   innerWidth: number;
   scrollLeft: number;
@@ -43,7 +44,7 @@ export class Canvas extends React.Component<Props, {}> {
     };
     return (
       <div
-        style={outerStyle(this.props.outerWidth)}
+        style={outerStyle(this.props.height, this.props.outerWidth)}
         onScroll={this.setScrollPosition}
         ref={(outer) => this.outer = outer}
       >
