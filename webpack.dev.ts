@@ -2,10 +2,11 @@ import * as Webpack from "webpack";
 import * as WebpackMerge from "webpack-merge";
 import * as Common from "./webpack.common";
 
-// tslint:disable:no-var-requires
-
 // No typings.
+// tslint:disable-next-line:no-var-requires
 const FaviconsPlugin = require("favicons-webpack-plugin");
+// tslint:disable-next-line:no-var-requires
+const ErrorOverlayPlugin = require("error-overlay-webpack-plugin");
 
 const faviconOptions = Object.create(Common.faviconOptions);
 faviconOptions.icons = {
@@ -23,9 +24,10 @@ faviconOptions.icons = {
 
 const configuration: Webpack.Configuration = {
   devServer: {
+    inline: true,
     open: true,
     port: 3000,
-    stats: "minimal",
+    stats: Common.stats,
   },
   devtool: "source-map",
   plugins: [
@@ -35,6 +37,7 @@ const configuration: Webpack.Configuration = {
       },
     }),
     new FaviconsPlugin(faviconOptions),
+    new ErrorOverlayPlugin(),
   ],
 };
 

@@ -1,15 +1,15 @@
+import * as CleanPlugin from "clean-webpack-plugin";
 import * as CopyPlugin from "copy-webpack-plugin";
 import * as HtmlPlugin from "html-webpack-plugin";
 import * as Path from "path";
 import * as Webpack from "webpack";
 
-// tslint:disable:no-var-requires
-
 // No typings.
-const CleanPlugin = require("clean-webpack-plugin");
+// tslint:disable-next-line:no-var-requires
 const IncludeAssetsPlugin = require("html-webpack-include-assets-plugin");
 
-// Load package definition.
+// Load package definition so we can pluck out anything relevant.
+// tslint:disable-next-line:no-var-requires
 const packageJson = require("./package.json");
 
 // Shorthand for paths.
@@ -17,6 +17,14 @@ const resolvePath = (target: string) => Path.resolve(__dirname, target);
 
 // Output to `/docs/` for GitHub pages.
 const outputDirectory = "docs";
+
+export const stats = {
+  assets: false,
+  children: false,
+  hash: false,
+  modules: false,
+  version: true,
+};
 
 export const configuration: Webpack.Configuration = {
   devtool: "source-map",
@@ -26,9 +34,11 @@ export const configuration: Webpack.Configuration = {
   module: {
     rules: [
       {
-        exclude: resolvePath("node_modules"),
         include: resolvePath("src"),
-        loaders: [ "awesome-typescript-loader" ],
+        loaders: [
+          "babel-loader",
+          "awesome-typescript-loader",
+        ],
         test: /\.tsx?$/,
       },
       {
@@ -38,9 +48,11 @@ export const configuration: Webpack.Configuration = {
       },
       {
         enforce: "pre",
+        include: resolvePath("src"),
         loader: "tslint-loader",
         options: {
           configFile: resolvePath("tslint.json"),
+          formatter: "stylish",
         },
         test: /\.tsx?$/,
       },
@@ -50,8 +62,16 @@ export const configuration: Webpack.Configuration = {
     filename: "bundle.js",
     path: resolvePath(outputDirectory),
   },
+  performance: {
+    assetFilter(assetName) {
+      return assetName.indexOf("material-design-icons-webfont") !== -1;
+    },
+  },
   plugins: [
-    new CleanPlugin([outputDirectory]),
+    new CleanPlugin(
+      [outputDirectory],
+      { verbose: false },
+    ),
     new CopyPlugin([
       { from: "assets/reset.css", to: "." },
       { from: "assets/gallery", to: "." },
@@ -76,6 +96,7 @@ export const configuration: Webpack.Configuration = {
   resolve: {
     extensions: [".ts", ".tsx", ".js"],
   },
+  stats,
 };
 
 export const faviconOptions = {
