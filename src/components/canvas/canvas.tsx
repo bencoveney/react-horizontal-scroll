@@ -27,7 +27,7 @@ interface Props {
 }
 
 export class Canvas extends React.Component<Props, {}> {
-  private outer: HTMLDivElement | null;
+  private outer: HTMLDivElement | null = null;
   public render() {
     const wrapped = this.props.children.map((child, index) => {
       const style: React.CSSProperties = {

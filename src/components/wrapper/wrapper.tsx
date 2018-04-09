@@ -38,7 +38,7 @@ measure it.
 */
 
 export class Wrapper extends React.Component<Props, State> {
-  private wrapper: Nullable<HTMLElement>;
+  private wrapper: Nullable<HTMLElement> = null;
   public constructor(props: Props) {
     super(props);
     this.state = {
